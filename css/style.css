@@ -1,0 +1,63 @@
+main{
+    display: flex;
+    justify-content: center;
+}
+
+.calendar{
+    max-width: 700px;
+    border-collapse: collapse;
+}
+
+.meses{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.mes{
+    text-align: center;
+}
+
+.dias{
+    max-width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dia{
+    box-sizing: border-box;
+    padding: 5px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.domingo{
+    background-color: red;
+    color: white;
+    border-left: 2px solid black;
+}
+
+.hoje{
+    background-color: green;
+}
+
+.mesAnterior{
+    background-color: rgba(80, 80, 80, 0.1);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.meses > span{
+    color: rgb(0, 0, 150);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.meses > span:hover{
+    color: rgb(0, 0, 200);
+}
