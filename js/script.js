@@ -1,6 +1,5 @@
-const anoBissexto = ano => (ano[2] == 0 && ano[3] == 0) || (Number(`${ano[2]}${ano[3]}`)%4 == 0);
-
-const diasFevereiro = ano => anoBissexto(ano) ? 29 : 28
+const anoBissexto = ano => 
+    ano % 4 == 0 ? 29 : 28
 
 //Datas e valores importantes
 const data = new Date();
@@ -10,7 +9,7 @@ const diaAtual = data.getDate();
 
 const meses = [
     {nome: "Janeiro", dias: 31},
-    {nome: "Fevereiro", dias: diasFevereiro(`${anoAtual}`)},
+    {nome: "Fevereiro", dias: anoBissexto(anoAtual)},
     {nome: "Março", dias: 31},
     {nome: "Abril", dias: 30},
     {nome: "Maio", dias: 31},
@@ -35,14 +34,22 @@ const dias = meses.map(e => {
     return array;
 });
 
+const mudaAno = (m, n, a) => {
+    const diasFevereiro = anoBissexto(Number(a)+n);
+    const ArrayDias2 = [];
+    for(let i = 1; i <= diasFevereiro; i++) ArrayDias2.push(i);
+    dias[1] = ArrayDias2;
+    desenharCalendario(m, Number(a)+n);
+}
+
 const mudaMes = n => {
     sessaoDias.innerHTML = '';
     const anoMostrado = ano.innerText;
-    console.log(anoMostrado);
-    if(mes.innerText == 'Dezembro' && n == 1)
-        desenharCalendario(0, Number(anoMostrado)+1); 
+    if(mes.innerText == 'Dezembro' && n == 1){
+        mudaAno(0, n, anoMostrado);
+    } 
     else if(mes.innerText == 'Janeiro' && n == -1)
-        desenharCalendario(11, Number(anoMostrado)-1);
+        mudaAno(11, n, anoMostrado);
     else{
         const mesMostrado = meses.findIndex(e => e.nome == mes.innerText);
         desenharCalendario(mesMostrado + n, anoMostrado);
@@ -77,13 +84,33 @@ const completarAnterior = (list, m, a) => {
     return list;
 }
 
+const completarProximo = (list, m, a) => {
+    const ultimoDia = new Date(`${m+1}/${dias[m].length}/${a}`).getDay();
+
+    if(ultimoDia != 6){
+        if(m == 11){
+            for(let i = 1; i <= 6 - ultimoDia; i++) list.push(criarDia(i, m, a+1, false));
+        } else{
+            for(let i = 1; i <= 6 - ultimoDia; i++) list.push(criarDia(i, m, a, false));
+        }
+    }
+
+    return list;
+}
+
+const completarMes = (list, m, a) => {
+    const mesAnterior = completarAnterior(list, m, a);
+    const mesInteiro = completarProximo(mesAnterior, m, a);
+    return mesInteiro;
+}
+
 const desenharCalendario = (m, a) => {
     mes.innerText = meses[m].nome;
     ano.innerText = a;
     const divDias = dias[m].map(e =>
         criarDia(e, m, a)
     );
-    const mesCompleto = completarAnterior(divDias, m, a);
+    const mesCompleto = completarMes(divDias, m, a);
     mesCompleto.forEach(e => sessaoDias.appendChild(e));
 }
 

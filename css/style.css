@@ -4,15 +4,19 @@ main{
 }
 
 .calendar{
-    max-width: 700px;
+    max-width: 594px;
+    border: 1px solid black;
     border-collapse: collapse;
+    -webkit-box-shadow: 3px 3px 0px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    3px 3px 0px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         3px 3px 0px 0px rgba(50, 50, 50, 0.75);
 }
 
 .meses{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     border-collapse: collapse;
 }
 
@@ -26,15 +30,18 @@ main{
     flex-wrap: wrap;
     font-size: 20px;
     font-weight: bold;
+    padding: 2px;
 }
 
 .dia{
     box-sizing: border-box;
     padding: 5px;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border: 1px solid black;
     border-collapse: collapse;
+    margin: 2px;
+
 }
 
 .domingo{
